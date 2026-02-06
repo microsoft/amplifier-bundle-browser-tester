@@ -68,6 +68,35 @@ Do NOT skip this check. If agent-browser is missing, all subsequent commands wil
 5. **Extract/Verify** - Get data or screenshot as needed
 6. **Close** - Clean up the browser session
 
+## Failure Budget (Circuit Breaker)
+
+If a page fails to load, do NOT retry indefinitely. Follow this budget:
+
+| Attempt | Strategy | If fails... |
+|---------|----------|-------------|
+| 1 | `agent-browser open <url>` | Try with `--wait-until domcontentloaded` |
+| 2 | `agent-browser open <url> --wait-until domcontentloaded` | Try once more with a diagnostic check |
+| 3 | Quick diagnostic: `agent-browser open <url>` + `agent-browser get url` | Report failure to user |
+
+**After 3 failed load attempts or 2 minutes of total effort on a single URL, STOP and report:**
+
+> "The page at [URL] failed to load after 3 attempts. Diagnostics:
+> - DNS resolution: [pass/fail]
+> - The server may be down, unresponsive, or blocking automated access.
+> I recommend trying the URL in a regular browser to confirm it's accessible."
+
+**Do NOT:**
+- Retry the same URL more than 3 times
+- Try increasingly creative workarounds (background processes, curl, web_fetch fallback)
+- Spend more than 2 minutes on a single unresponsive page
+- Attempt to diagnose server infrastructure problems
+
+**DO:**
+- Report the failure clearly with what you observed
+- Suggest the user verify the URL manually
+- Ask if they'd like to try an alternative URL
+- Continue with other URLs if this was part of a multi-page task
+
 ## Commands Reference
 
 ### Navigation & Lifecycle
