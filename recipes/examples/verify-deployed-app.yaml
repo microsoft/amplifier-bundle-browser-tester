@@ -1,0 +1,69 @@
+name: verify-deployed-app
+description: |
+  Verify a deployed web application is working correctly.
+  
+  WHY BROWSER IS NEEDED:
+  - Modern apps are JS-rendered (React/Vue/Angular) - fetch gets empty HTML
+  - Requires visual verification - "looks right" means actually seeing it
+  - May need authentication - can't just curl a protected page
+  - Dynamic content loads after page render
+  
+  This recipe logs into your app, navigates key pages, and reports any issues.
+version: "1.0.0"
+
+# Usage:
+#   amplifier tool invoke recipes operation=execute \
+#     recipe_path=@browser-tester:recipes/examples/verify-deployed-app.yaml \
+#     context='{"app_url": "https://staging.myapp.com", "login_email": "test@example.com", "login_password": "testpass123"}'
+
+context:
+  app_url: ""                    # Required: Base URL of the deployed application
+  login_email: ""                # Optional: Email/username for authentication
+  login_password: ""             # Optional: Password for authentication
+  pages_to_check: ["/dashboard", "/settings"]  # List of paths to verify after login
+
+steps:
+  - id: verify
+    agent: browser-tester:browser-operator
+    prompt: |
+      Verify the deployed application at {{app_url}} is working correctly.
+      
+      ## Step 1: Access and Screenshot Homepage
+      1. Navigate to {{app_url}}
+      2. Wait for page to fully load (watch for spinners/loading states)
+      3. Screenshot: 01-homepage.png
+      4. Report what you see - is it the expected landing page or an error?
+      
+      {% if login_email and login_password %}
+      ## Step 2: Authentication
+      1. Find and click the login/sign-in link
+      2. Screenshot: 02-login-page.png
+      3. Fill in credentials:
+         - Email: {{login_email}}
+         - Password: {{login_password}}
+      4. Submit the login form
+      5. Wait for redirect
+      6. Screenshot: 03-after-login.png
+      7. Report: Did login succeed? Any error messages?
+      {% endif %}
+      
+      ## Step 3: Verify Key Pages
+      For each page in {{pages_to_check}}:
+      1. Navigate to {{app_url}}{page}
+      2. Wait for content to load
+      3. Screenshot with descriptive name
+      4. Check for:
+         - Error messages or stack traces
+         - Broken layouts or missing content
+         - Console errors (if visible)
+         - Loading states that never resolve
+      
+      ## Step 4: Report
+      Provide a summary:
+      - Overall status: WORKING / ISSUES FOUND / BROKEN
+      - Screenshots captured
+      - Any problems discovered
+      - Specific elements that look wrong
+      
+      Close the browser when complete.
+    output: verification_result

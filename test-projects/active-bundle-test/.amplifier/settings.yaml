@@ -1,0 +1,4 @@
+# Test: browser-tester used as active bundle
+# To test: amplifier bundle add ../../bundle.md --name browser-tester
+#          amplifier bundle use browser-tester
+#          amplifier run "go to example.com and take a screenshot"

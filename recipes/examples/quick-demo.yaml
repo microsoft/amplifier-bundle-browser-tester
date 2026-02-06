@@ -1,0 +1,83 @@
+name: quick-demo
+description: |
+  Quick demo showing browser automation in action.
+  Fetches live content from Hacker News that requires seeing the rendered page.
+  
+  Run this first to see the browser bundle working!
+version: "1.0.0"
+
+# Usage:
+#   amplifier tool invoke recipes operation=execute \
+#     recipe_path=@browser-tester:recipes/examples/quick-demo.yaml
+
+context: {}
+
+steps:
+  - id: demo
+    agent: browser-tester:browser-operator
+    prompt: |
+      Demonstrate browser automation by fetching live content from Hacker News
+      using the agent-browser CLI.
+      
+      ## Browser Commands (via bash)
+      
+      ```bash
+      agent-browser open <url>        # Navigate to URL
+      agent-browser snapshot -ic      # Get page structure with refs
+      agent-browser screenshot <file> # Capture screenshot
+      agent-browser click @<ref>      # Click element
+      agent-browser get text @<ref>   # Extract text
+      agent-browser close             # Close browser
+      ```
+      
+      ## Instructions
+      
+      1. Navigate to https://news.ycombinator.com:
+         ```bash
+         agent-browser open "https://news.ycombinator.com"
+         ```
+      
+      2. Take a snapshot to see the page structure:
+         ```bash
+         agent-browser snapshot -ic
+         ```
+      
+      3. Screenshot the page:
+         ```bash
+         agent-browser screenshot hackernews.png
+         ```
+      
+      4. Extract the top 5 stories:
+         - Rank
+         - Title
+         - Points
+         - Author
+         - Number of comments
+         - Link URL
+      
+      5. For the #1 story, click through to the comments page and:
+         - Screenshot: top-story-comments.png
+         - Report how many comments it has
+         - Summarize the top 2-3 comments
+      
+      ## Output Format
+      
+      ### Top 5 Hacker News Stories (Live)
+      
+      | # | Title | Points | Comments |
+      |---|-------|--------|----------|
+      | 1 | ... | ... | ... |
+      | 2 | ... | ... | ... |
+      | 3 | ... | ... | ... |
+      | 4 | ... | ... | ... |
+      | 5 | ... | ... | ... |
+      
+      ### #1 Story Deep Dive
+      **Title**: [title]
+      **Discussion highlights**: [summary of top comments]
+      
+      ---
+      *Captured live at [timestamp]*
+      
+      Close the browser when complete.
+    output: demo_result

@@ -1,0 +1,71 @@
+name: monitor-competitor-pricing
+description: |
+  Check a competitor's pricing page and extract current pricing information.
+  
+  WHY BROWSER IS NEEDED:
+  - Pricing pages are often A/B tested (different users see different prices)
+  - Content is frequently JS-rendered
+  - Some sites block automated requests (bot detection)
+  - Prices may be dynamically loaded or region-specific
+  - Need visual context to understand pricing structure
+version: "1.0.0"
+
+# Usage:
+#   amplifier tool invoke recipes operation=execute \
+#     recipe_path=@browser-tester:recipes/examples/monitor-competitor-pricing.yaml \
+#     context='{"pricing_url": "https://competitor.com/pricing"}'
+
+context:
+  pricing_url: ""   # Required: URL of the competitor's pricing page
+  compare_to: {}    # Optional: Your product's pricing to compare against
+
+steps:
+  - id: capture-pricing
+    agent: browser-tester:web-researcher
+    prompt: |
+      Research the pricing at {{pricing_url}}
+      
+      ## Instructions
+      
+      1. Navigate to {{pricing_url}}
+      2. Wait for pricing to fully load (watch for price elements appearing)
+      3. Screenshot: competitor-pricing.png
+      
+      4. Extract ALL pricing information:
+         - Plan/tier names
+         - Monthly prices
+         - Annual prices (and savings percentage)
+         - What's included in each tier
+         - Any usage limits (users, storage, API calls, etc.)
+         - Enterprise/custom pricing indicators
+         - Free tier details
+         - Trial information
+      
+      5. Note any:
+         - Hidden fees or add-ons
+         - "Contact us" pricing
+         - Special offers or discounts shown
+         - Regional pricing indicators
+      
+      ## Output Format
+      
+      ### Pricing Table
+      | Plan | Monthly | Annual | Key Features |
+      |------|---------|--------|--------------|
+      | ... | ... | ... | ... |
+      
+      ### Plan Details
+      [Detailed breakdown of each plan]
+      
+      ### Notable Observations
+      - [Pricing strategy observations]
+      - [Comparison to market]
+      - [Any unusual terms]
+      
+      {% if compare_to %}
+      ### Comparison to Your Pricing
+      [How this compares to: {{compare_to}}]
+      {% endif %}
+      
+      Close the browser when complete.
+    output: pricing_data

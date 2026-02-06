@@ -1,0 +1,70 @@
+name: check-status-page
+description: |
+  Check a service's status page for incidents or outages.
+  
+  WHY BROWSER IS NEEDED:
+  - Status pages are often JS-rendered (Statuspage.io, custom React apps)
+  - `curl` returns empty template, not actual status
+  - Need to see the visual indicators (green/red/yellow)
+  - Incident details may be dynamically loaded
+  
+  Try: curl https://status.vercel.com - you'll get a JS shell, not the actual status.
+version: "1.0.0"
+
+# Usage:
+#   amplifier tool invoke recipes operation=execute \
+#     recipe_path=@browser-tester:recipes/examples/check-status-page.yaml \
+#     context='{"status_url": "https://status.openai.com"}'
+
+context:
+  status_url: ""   # Required: URL of the status page to check
+  services: []     # Optional: Specific services to check (checks all if empty)
+
+steps:
+  - id: check-status
+    agent: browser-tester:browser-operator
+    prompt: |
+      Check the status page at {{status_url}} for any incidents or issues.
+      
+      ## Instructions
+      
+      1. Navigate to {{status_url}}
+      2. Wait for the page to fully render (status pages are often JS-heavy)
+      3. Screenshot: status-page.png
+      
+      4. Extract the following information:
+         - Overall system status (operational, degraded, outage)
+         - Individual service statuses
+         - Any active incidents with their:
+           - Title/description
+           - Affected services
+           - Start time
+           - Current status
+         - Any scheduled maintenance
+      
+      {% if services %}
+      5. Specifically check these services: {{services}}
+      {% endif %}
+      
+      6. Look for any recent incidents (last 24-48 hours)
+      
+      ## Report Format
+      
+      ### Current Status
+      **Overall: [STATUS]**
+      
+      | Service | Status |
+      |---------|--------|
+      | ... | ... |
+      
+      ### Active Incidents
+      [List any ongoing issues]
+      
+      ### Recent Incidents (Last 48h)
+      [List recent resolved issues]
+      
+      ### Scheduled Maintenance
+      [Any upcoming maintenance windows]
+      
+      Close the browser when complete.
+    output: status_result

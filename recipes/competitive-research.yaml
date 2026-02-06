@@ -1,0 +1,64 @@
+name: competitive-research
+description: |
+  Research competitors by visiting their websites and extracting key information.
+  Produces a structured comparison report.
+version: "1.0.0"
+
+# Usage:
+#   amplifier tool invoke recipes operation=execute \
+#     recipe_path=@browser-tester:recipes/competitive-research.yaml \
+#     context='{"competitors": ["stripe.com", "square.com"], "research_focus": "pricing and features"}'
+
+context:
+  competitors: []   # Required: List of competitor domains to research
+  research_focus: "pricing, features, and target audience"  # What aspects to focus on
+
+steps:
+  - id: research
+    agent: browser-tester:web-researcher
+    prompt: |
+      Research the following competitors: {{competitors}}
+      
+      Focus on: {{research_focus}}
+      
+      For each competitor:
+      1. Visit their main website
+      2. Navigate to relevant pages (pricing, features, about)
+      3. Extract key data points
+      4. Take screenshots of important pages as evidence
+      
+      Compile your findings in a structured format with:
+      - Company overview
+      - Key features
+      - Pricing (if available)
+      - Target audience
+      - Unique differentiators
+      
+      Always close the browser between competitors to keep sessions clean.
+    output: research_findings
+
+  - id: synthesize
+    agent: foundation:zen-architect
+    prompt: |
+      Based on the competitive research:
+      
+      {{research_findings}}
+      
+      Create a competitive analysis report with:
+      
+      ## Executive Summary
+      [Key takeaways in 2-3 sentences]
+      
+      ## Comparison Matrix
+      | Aspect | {{competitors | join(" | ")}} |
+      |--------|...|
+      
+      ## Competitive Positioning
+      [Where each competitor positions themselves]
+      
+      ## Opportunities
+      [Gaps in the market based on research]
+      
+      ## Recommendations
+      [Actionable insights]
+    output: analysis_report

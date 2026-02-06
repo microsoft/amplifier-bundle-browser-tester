@@ -1,0 +1,73 @@
+name: extract-dynamic-content
+description: |
+  Extract content from JavaScript-rendered pages (React, Vue, Angular apps).
+  
+  WHY BROWSER IS NEEDED:
+  - Modern web apps render content client-side with JavaScript
+  - Fetching the HTML returns just: <div id="root"></div>
+  - The actual content requires JS execution to appear
+  - APIs may not exist or be documented for the data you need
+  
+  Example: Try `curl https://news.ycombinator.com` vs a React app - HN works,
+  but most modern apps return empty shells.
+version: "1.0.0"
+
+# Usage:
+#   amplifier tool invoke recipes operation=execute \
+#     recipe_path=@browser-tester:recipes/examples/extract-dynamic-content.yaml \
+#     context='{"url": "https://example.com/dashboard", "extract": "all product cards with name, price, and rating"}'
+
+context:
+  url: ""          # Required: URL of the page with dynamic content
+  extract: ""      # Required: Description of what data to extract
+  wait_for: ""     # Optional: Element to wait for before extracting
+
+steps:
+  - id: extract
+    agent: browser-tester:browser-operator
+    prompt: |
+      Extract dynamic content from {{url}}
+      
+      ## The Problem
+      This page likely uses JavaScript to render its content. A simple HTTP fetch
+      would return an empty shell. We need a real browser to execute the JS and
+      see the actual content.
+      
+      ## Instructions
+      
+      1. Navigate to {{url}}
+      
+      2. Wait for content to load:
+         {% if wait_for %}
+         - Specifically wait for: {{wait_for}}
+         {% else %}
+         - Watch for loading spinners to disappear
+         - Wait for main content to appear
+         - May need to scroll to trigger lazy loading
+         {% endif %}
+      
+      3. Get a snapshot to see the rendered content:
+         ```
+         agent-browser snapshot -ic
+         ```
+      
+      4. Extract: {{extract}}
+         - Use `get text @ref` for specific elements
+         - Capture structured data
+      
+      5. Screenshot the page for reference: extracted-content.png
+      
+      ## Output Format
+      
+      ### Extracted Data
+      [Structured extraction of requested data]
+      
+      ### Source
+      - URL: {{url}}
+      - Captured at: [timestamp]
+      
+      ### Notes
+      [Any issues with extraction, missing data, etc.]
+      
+      Close the browser when complete.
+    output: extracted_data

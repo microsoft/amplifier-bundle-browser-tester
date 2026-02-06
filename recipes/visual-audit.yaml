@@ -1,0 +1,62 @@
+name: visual-audit
+description: |
+  Capture screenshots of a website across multiple pages for visual documentation,
+  QA review, or change tracking.
+version: "1.0.0"
+
+# Usage:
+#   amplifier tool invoke recipes operation=execute \
+#     recipe_path=@browser-tester:recipes/visual-audit.yaml \
+#     context='{"base_url": "https://example.com", "pages": ["/", "/pricing", "/features"]}'
+
+context:
+  base_url: ""              # Required: Base URL of the website to audit
+  pages: ["/"]              # List of page paths to capture (relative to base_url)
+  output_dir: "./screenshots"  # Directory to save screenshots
+
+steps:
+  - id: capture
+    agent: browser-tester:visual-documenter
+    prompt: |
+      Perform a visual audit of {{base_url}}
+      
+      Pages to capture:
+      {{pages}}
+      
+      For each page:
+      1. Navigate to {{base_url}}{page}
+      2. Wait for full page load
+      3. Take a screenshot named: {sanitized-page-name}.png
+      4. Note any visual issues or anomalies
+      
+      After all captures:
+      - List all screenshots taken with their file paths
+      - Note any pages that failed to load
+      - Report any visual inconsistencies observed
+      
+      Close the browser when complete.
+    output: capture_results
+
+  - id: report
+    agent: foundation:zen-architect
+    prompt: |
+      Based on the visual audit results:
+      
+      {{capture_results}}
+      
+      Create a visual audit report:
+      
+      ## Screenshots Captured
+      | Page | Screenshot | Status |
+      |------|------------|--------|
+      [List each page and its screenshot]
+      
+      ## Visual Issues Found
+      [Any anomalies or issues noted]
+      
+      ## Recommendations
+      [Suggestions for improvement if any issues found]
+      
+      ## Next Steps
+      [What to do with these screenshots]
+    output: audit_report

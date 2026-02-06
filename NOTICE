@@ -1,0 +1,15 @@
+This bundle incorporates material from:
+
+1. amplifier-bundle-browser by ramparte (https://github.com/ramparte/amplifier-bundle-browser)
+   Declared as Apache-2.0 in bundle.md (no LICENSE file in repository)
+   - docs/TROUBLESHOOTING.md (troubleshooting guide)
+   - Context patterns and automation guide content
+
+2. amplifier-bundle-browser by samueljklee (https://github.com/samueljklee/amplifier-bundle-browser)
+   Licensed under MIT License
+   - Agent definitions (browser-operator, web-researcher, visual-documenter)
+   - Behavior composition pattern
+   - Recipe definitions
+
+3. agent-browser by Vercel Labs (https://github.com/vercel-labs/agent-browser)
+   The upstream CLI tool wrapped by this bundle

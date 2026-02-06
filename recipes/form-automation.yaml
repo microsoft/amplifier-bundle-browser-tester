@@ -1,0 +1,48 @@
+name: form-automation
+description: |
+  Automate filling out a web form with provided data.
+  Useful for testing, data entry, or repetitive form submissions.
+version: "1.0.0"
+
+# Usage:
+#   amplifier tool invoke recipes operation=execute \
+#     recipe_path=@browser-tester:recipes/form-automation.yaml \
+#     context='{"form_url": "https://example.com/contact", "form_data": {"name": "John", "email": "john@test.com"}}'
+
+context:
+  form_url: ""              # Required: URL of the page containing the form
+  form_data: {}             # Required: Key-value pairs of form fields and values
+  submit: false             # Whether to submit the form after filling
+  screenshot_before: true   # Take screenshot before filling
+  screenshot_after: true    # Take screenshot after filling (before submit)
+
+steps:
+  - id: fill-form
+    agent: browser-tester:browser-operator
+    prompt: |
+      Navigate to: {{form_url}}
+      
+      Take a screenshot before filling: form-before.png (if screenshot_before is {{screenshot_before}})
+      
+      Get a snapshot of the page to identify form fields.
+      
+      Fill in the following form data:
+      {{form_data}}
+      
+      For each field:
+      1. Find the input element (look for labels, placeholders, or field names)
+      2. Use the appropriate command (fill for text, select for dropdowns, check for checkboxes)
+      
+      Take a screenshot after filling: form-filled.png (if screenshot_after is {{screenshot_after}})
+      
+      Submit behavior: {{submit}}
+      - If submit is true: Find and click the submit button, wait for response, take screenshot: form-submitted.png
+      - If submit is false: Do NOT submit the form - just fill it out.
+      
+      Report:
+      - Which fields were filled successfully
+      - Any fields that couldn't be found
+      - Screenshots taken
+      
+      Close the browser when complete.
+    output: form_result
