@@ -7,7 +7,7 @@ Browser automation and testing bundle for [Amplifier](https://github.com/microso
 Adds browser automation capabilities to any Amplifier session:
 
 - **browser-operator** - General browser automation (navigation, forms, screenshots, UX testing)
-- **web-researcher** - Multi-page research and data extraction
+- **browser-researcher** - Multi-page research and data extraction
 - **visual-documenter** - Screenshot documentation, QA evidence, responsive testing
 
 ## Quick Start
@@ -54,7 +54,7 @@ includes:
 | Agent | Purpose | Example |
 |-------|---------|---------|
 | `browser-operator` | General automation | "Go to github.com and find trending repos" |
-| `web-researcher` | Research & extraction | "Research pricing of top 3 CRM competitors" |
+| `browser-researcher` | Research & extraction | "Research pricing of top 3 CRM competitors" |
 | `visual-documenter` | Screenshots & docs | "Screenshot landing page at different viewports" |
 
 ## Recipes

@@ -28,7 +28,7 @@ Delegate browser tasks to specialized agents:
 | Agent | Use For | Example Triggers |
 |-------|---------|-----------------|
 | `browser-tester:browser-operator` | General automation: navigation, forms, data extraction, screenshots, UX testing | "Go to github.com", "Fill the contact form", "Test the login flow" |
-| `browser-tester:web-researcher` | Research: multi-page exploration, data synthesis, documentation lookup | "Research pricing of top 3 CRM competitors", "Find API rate limits from Stripe docs" |
+| `browser-tester:browser-researcher` | Research: multi-page exploration, data synthesis, documentation lookup | "Research pricing of top 3 CRM competitors", "Find API rate limits from Stripe docs" |
 | `browser-tester:visual-documenter` | Visual documentation: screenshots, QA evidence, change tracking, responsive testing | "Screenshot landing page at different viewports", "Document the checkout flow" |
 
 ## When to Use Browser Agents vs web_fetch

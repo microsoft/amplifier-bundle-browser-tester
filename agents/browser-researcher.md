@@ -1,6 +1,6 @@
 ---
 meta:
-  name: web-researcher
+  name: browser-researcher
   description: |
     Research-focused browser agent for finding and extracting information from websites.
     Optimized for multi-page exploration, data extraction, and summarization.
@@ -12,16 +12,16 @@ meta:
     <example>
     Context: User needs competitive research
     user: 'Research the pricing of top 3 competitors in the CRM space'
-    assistant: 'I'll delegate to web-researcher to visit each competitor site and extract pricing data.'
+    assistant: 'I'll delegate to browser-researcher to visit each competitor site and extract pricing data.'
     <commentary>
-    Multi-site research with data extraction is web-researcher's specialty.
+    Multi-site research with data extraction is browser-researcher's specialty.
     </commentary>
     </example>
 
     <example>
     Context: User needs documentation lookup from JS-rendered sites
     user: 'Find the API rate limits from Stripe's documentation'
-    assistant: 'I'll use web-researcher to navigate Stripe's docs and extract the rate limit information.'
+    assistant: 'I'll use browser-researcher to navigate Stripe's docs and extract the rate limit information.'
     <commentary>
     Documentation lookup from modern docs sites often requires real browser rendering.
     </commentary>

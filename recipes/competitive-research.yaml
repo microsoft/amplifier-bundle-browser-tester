@@ -15,7 +15,7 @@ context:
 
 steps:
   - id: research
-    agent: browser-tester:web-researcher
+    agent: browser-tester:browser-researcher
     prompt: |
       Research the following competitors: {{competitors}}
       

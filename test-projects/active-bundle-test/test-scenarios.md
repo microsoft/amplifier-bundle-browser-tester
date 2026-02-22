@@ -10,7 +10,7 @@ Expected: Agent delegates to visual-documenter
 
 ## Scenario 3: Research Task
 Prompt: "Research the pricing of Vercel, Netlify, and Cloudflare Pages"
-Expected: Agent delegates to web-researcher
+Expected: Agent delegates to browser-researcher
 
 ## Scenario 4: Missing agent-browser
 Prompt: "Go to example.com" (with agent-browser NOT installed)

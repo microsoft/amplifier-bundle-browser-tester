@@ -6,7 +6,7 @@ bundle:
 
 includes:
   - bundle: git+https://github.com/microsoft/amplifier-foundation@main
-  - bundle: browser-tester:behaviors/browser
+  - bundle: browser-tester:behaviors/browser-tester
 
 ---
 

@@ -21,7 +21,7 @@ context:
 
 steps:
   - id: capture-pricing
-    agent: browser-tester:web-researcher
+    agent: browser-tester:browser-researcher
     prompt: |
       Research the pricing at {{pricing_url}}
       
