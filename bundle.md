@@ -5,7 +5,6 @@ bundle:
   description: Browser automation and testing for AI agents using agent-browser
 
 includes:
-  - bundle: git+https://github.com/microsoft/amplifier-foundation@main
   - bundle: browser-tester:behaviors/browser-tester
 ---
 
