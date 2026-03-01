@@ -35,6 +35,7 @@ meta:
     UX testing needs a real browser that can render JS, interact with elements, and verify state.
     </commentary>
     </example>
+  model_role: [vision, general]
 ---
 
 # Browser Operator

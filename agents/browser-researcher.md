@@ -26,6 +26,7 @@ meta:
     Documentation lookup from modern docs sites often requires real browser rendering.
     </commentary>
     </example>
+  model_role: [research, general]
 ---
 
 # Web Researcher

@@ -25,6 +25,7 @@ meta:
     Step-by-step flow documentation with named screenshots needs the visual specialist.
     </commentary>
     </example>
+  model_role: [vision, general]
 ---
 
 # Visual Documenter
