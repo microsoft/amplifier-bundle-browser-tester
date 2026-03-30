@@ -14,3 +14,10 @@ agents:
 context:
   include:
     - browser-tester:context/browser-awareness.md
+
+tools:
+  - module: tool-skills
+    source: git+https://github.com/microsoft/amplifier-module-tool-skills@main
+    config:
+      skills:
+        - "@browser-tester:skills"
