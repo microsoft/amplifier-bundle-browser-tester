@@ -25,6 +25,7 @@ If "command not found": install with the commands above. If npm is not available
 
 ## Available Browser Agents
 
+<!-- mirrors browser-awareness.md routing table for standalone use -->
 Delegate browser tasks to specialized agents:
 
 | Agent | Use For | Example Triggers |
