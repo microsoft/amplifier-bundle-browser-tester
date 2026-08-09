@@ -2,6 +2,12 @@
 
 This bundle provides browser automation via [agent-browser](https://github.com/vercel-labs/agent-browser), a token-efficient CLI that uses accessibility-tree refs instead of DOM selectors.
 
+## The One Rule That Matters
+
+**The current snapshot is the sensor. A ref from a superseded snapshot is a memory, never a target.**
+
+Refs like `@e1`, `@e2` are assigned by `snapshot -ic` and are stable only *for the page state that produced them*. Any navigation, click, form submission, or async render supersedes that snapshot. The loud failure is `Element not found: @e5` — re-snapshot and retry. The failure worth the rule is the quiet one: a stale ref that still resolves, and acts on whatever now occupies that position.
+
 ## Prerequisites
 
 agent-browser must be installed before any browser agent can work:
