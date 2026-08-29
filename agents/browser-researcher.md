@@ -13,18 +13,12 @@ meta:
     Context: User needs competitive research
     user: 'Research the pricing of top 3 competitors in the CRM space'
     assistant: 'I'll delegate to browser-researcher to visit each competitor site and extract pricing data.'
-    <commentary>
-    Multi-site research with data extraction is browser-researcher's specialty.
-    </commentary>
     </example>
 
     <example>
     Context: User needs documentation lookup from JS-rendered sites
     user: 'Find the API rate limits from Stripe's documentation'
     assistant: 'I'll use browser-researcher to navigate Stripe's docs and extract the rate limit information.'
-    <commentary>
-    Documentation lookup from modern docs sites often requires real browser rendering.
-    </commentary>
     </example>
   model_role: [research, general]
 ---
