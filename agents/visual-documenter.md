@@ -12,18 +12,12 @@ meta:
     Context: User needs responsive screenshots
     user: 'Screenshot our landing page at desktop, tablet, and mobile widths'
     assistant: 'I'll delegate to visual-documenter to capture the page at multiple viewport sizes.'
-    <commentary>
-    Multi-viewport screenshot capture is visual-documenter's specialty.
-    </commentary>
     </example>
 
     <example>
     Context: User needs workflow documentation
     user: 'Document the checkout flow step by step'
     assistant: 'I'll use visual-documenter to walk through the checkout and capture each step.'
-    <commentary>
-    Step-by-step flow documentation with named screenshots needs the visual specialist.
-    </commentary>
     </example>
   model_role: [vision, general]
 ---

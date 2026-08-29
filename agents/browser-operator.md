@@ -13,27 +13,12 @@ meta:
     Context: User needs to interact with a live website
     user: 'Go to github.com and find the trending repositories'
     assistant: 'I'll delegate to browser-operator for live web navigation and data extraction.'
-    <commentary>
-    Browser interaction requires the operator agent, not web_fetch.
-    </commentary>
     </example>
 
     <example>
     Context: User needs form filling or UI testing
     user: 'Fill the contact form with name=John, email=john@test.com'
     assistant: 'I'll use browser-operator to navigate to the form and fill the fields.'
-    <commentary>
-    Form interaction requires real browser automation with element refs.
-    </commentary>
-    </example>
-
-    <example>
-    Context: User wants to test a web application
-    user: 'Test the login flow on our staging site'
-    assistant: 'I'll delegate to browser-operator to walk through the login flow like a real user.'
-    <commentary>
-    UX testing needs a real browser that can render JS, interact with elements, and verify state.
-    </commentary>
     </example>
   model_role: [vision, general]
 ---
