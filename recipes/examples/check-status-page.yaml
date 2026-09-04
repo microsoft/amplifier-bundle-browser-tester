@@ -1,3 +1,28 @@
+# --- Dependency manifest (contract: recipe-dependency-manifest.v1) ----------
+# schema_version 2 makes this recipe portable: every `agent:` reference below
+# resolves ONLY from the declared closure here, never from the calling
+# session's agent map. A caller bundle that does not carry these agents can
+# still run it.
+#
+# SOURCING -- this bundle's own agents come from a SELF-REFERENTIAL entry.
+# The runner never infers a dependency from an agent's namespace prefix
+# (manifest.v1 Core 11), so `browser-tester:*` must be declared explicitly
+# even though this recipe ships inside the browser-tester bundle.
+#
+# The pin is `@main`, not the sha `5af96c6`: Foundation fetches a ref with
+# `git clone --branch`, which accepts a branch or a tag but NOT a commit sha
+# (verified: `@5af96c6` fails "Remote branch 5af96c6 not found in upstream
+# origin"), and this repo carries no tags. `@main` currently resolves to
+# 5af96c6d2e983ed408bea81bf63b23fb60933da9 -- the intended commit.
+schema_version: 2
+
+dependencies:
+  - source: "git+https://github.com/microsoft/amplifier-bundle-browser-tester@main"
+    kind: bundle
+    required_agents:
+      - "browser-tester:browser-operator"
+# ---------------------------------------------------------------------------
+
 name: check-status-page
 description: |
   Check a service's status page for incidents or outages.
@@ -9,7 +34,12 @@ description: |
   - Incident details may be dynamically loaded
   
   Try: curl https://status.vercel.com - you'll get a JS shell, not the actual status.
-version: "1.0.0"
+version: "1.1.0"
+#
+# CHANGELOG:
+# v1.1.0 - Declare schema_version 2 + dependency manifest so this recipe runs
+#          from ANY session bundle instead of only one that happens to carry
+#          browser-tester:browser-operator. No behavior change to the steps.
 
 # Usage:
 #   amplifier tool invoke recipes operation=execute \

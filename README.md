@@ -75,6 +75,21 @@ includes:
 | `extract-dynamic-content` | Extract content from JS-heavy pages |
 | `monitor-competitor-pricing` | Monitor competitor pricing changes |
 
+Every shipped recipe declares `schema_version: 2` and a `dependencies:` block,
+so its `agent:` references resolve from the recipe's own declared closure rather
+than from whatever session bundle invoked it. That is what makes these recipes
+runnable from *any* bundle, not just one that already carries browser-tester.
+
+## Tests
+
+```bash
+pytest tests/
+```
+
+`tests/test_recipe_manifests.py` enforces the rule above: any recipe under
+`recipes/` that references a namespaced agent must declare that agent in its own
+manifest. It imports only `pytest` and `PyYAML`.
+
 ## Architecture
 
 This bundle follows the **context sink pattern**:
