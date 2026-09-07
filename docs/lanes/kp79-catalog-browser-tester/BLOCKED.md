@@ -20,24 +20,46 @@ The holder is **live, not stale**:
 - `readlink /proc/2776455/cwd` ->
   `/home/bkrabach/dev/hw-model-performance/lanes/kp79-catalog-android-tester/amplifier-bundle-android-tester`
 
-## Root cause: one work item, fanned out to four lanes
+## Root cause: one sweep item, five per-repo lanes
 
-The single item `model_performance-kp79` was launched into at least four concurrent
-lanes, each of whose `GOAL.md` Procedure 1 instructs it to claim **that same item id**:
+The single item `model_performance-kp79` was launched into **five** concurrent lanes,
+each of whose `GOAL.md` Procedure 1 instructs it to claim **that same item id**:
 
 ```
-lanes/kp79-catalog-android-tester   <- won the claim race, holds the item
-lanes/kp79-catalog-browser-tester   <- this lane, refused
+lanes/kp79-catalog-android-tester        <- won the claim race, holds the item
+lanes/kp79-catalog-browser-tester        <- this lane, refused
 lanes/kp79-catalog-dot-graph
+lanes/kp79-catalog-infographic-builder
 lanes/kp79-catalog-reality-check
 ```
 
-Exactly one holder can exist, so three of the four lanes are **structurally guaranteed**
-to be refused. The item's own text confirms per-repo intent ("PER-REPO DELIVERABLES — one
-PR per repo"), so the collision is in the launch, not the intent.
+Exactly one holder can exist, so **four of the five lanes are structurally guaranteed to
+be refused**.
 
-**Remedy:** one work item per repo, or a lane contract that does not require holding a
-claim in order to do repo-local work.
+### The more serious half of this defect
+
+`kp79` is a **sweep item spanning roughly twelve repos** (its own description names
+dot-graph, reality-check, android-tester, ios-tester, browser-tester,
+context-intelligence, attractor, work-tracker, stories, converge, plus queued
+dtu/amplifier-tester and third-party notify / amplifier-online). Each lane, however, owns
+**exactly one repo**.
+
+So the lane that *wins* the race inherits a contradiction: its own `GOAL.md` branch A
+tells it to `work_resolve` **kp79** once its **single repo's** deliverables exist. Doing
+that closes the sweep on behalf of the other ~11 repos it never touched — and a resolved
+item is the signal everyone downstream reads as "swept".
+
+**The collision is the visible symptom; premature closure is the expensive one.** A
+per-repo lane can never legitimately be the thing that resolves a twelve-repo sweep item.
+
+**Remedy:** one work item per repo (children of a `kp79` parent, so the parent closes only
+when the children do), or a lane contract that does not require holding a claim in order
+to do repo-local work.
+
+**Immediate risk, worth acting on before it lands:** the holding lane
+(`kp79-catalog-android-tester`) may resolve `kp79` on completing android-tester alone. If
+it does, this repo's work (PR #8) and the three other lanes' work are silently orphaned
+under a closed item.
 
 ## `work_release` was NOT called — deliberately
 

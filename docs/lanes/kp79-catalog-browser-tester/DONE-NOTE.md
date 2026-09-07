@@ -28,21 +28,39 @@ cwd is
 — a **sibling lane**, verified via `/proc/2776455/cwd`.
 
 **Goal defect (reported, not absorbed).** The single work item `model_performance-kp79`
-was fanned out to at least four concurrent lanes, each of whose `GOAL.md` Procedure 1
+was fanned out to **five** concurrent lanes, each of whose `GOAL.md` Procedure 1
 instructs it to claim *that same item id*:
 
 ```
-lanes/kp79-catalog-android-tester   <- won the race, holds the item
-lanes/kp79-catalog-browser-tester   <- this lane
+lanes/kp79-catalog-android-tester        <- won the race, holds the item
+lanes/kp79-catalog-browser-tester        <- this lane
 lanes/kp79-catalog-dot-graph
+lanes/kp79-catalog-infographic-builder
 lanes/kp79-catalog-reality-check
 ```
 
-Only one holder can exist, so **three of the four lanes are structurally guaranteed to
-be refused** on their first tool call. The item's own description confirms the intended
-design ("PER-REPO DELIVERABLES (one PR per repo)") — the collision is in the launch, not
-in the intent. The remedy is one item per repo (or a claim-optional lane contract), not
-three wasted lanes.
+Only one holder can exist, so **four of the five lanes are structurally guaranteed to be
+refused** on their first tool call.
+
+**The collision is the visible symptom. Premature closure is the expensive one.** `kp79`
+is a **sweep item spanning ~12 repos** (its description names dot-graph, reality-check,
+android-tester, ios-tester, browser-tester, context-intelligence, attractor,
+work-tracker, stories, converge, plus queued dtu/amplifier-tester and third-party notify /
+amplifier-online). Each lane owns **exactly one** of them. So the lane that wins the race
+inherits a contradiction: its branch A says `work_resolve` **kp79** once its **own single
+repo** is done — which closes the sweep on behalf of ~11 repos it never touched, and a
+resolved item is what everyone downstream reads as "swept".
+
+**A per-repo lane can never legitimately resolve a twelve-repo sweep item.** That is the
+real defect; the refused claim merely made it visible from this side. Remedy: one item per
+repo (children of a `kp79` parent that closes only when its children do), or a
+claim-optional lane contract for repo-local work.
+
+**What this means for branch A.** Branch A required *both* conjuncts: item resolved AND
+deliverables shipped. The second is done and published. The first was **never reachable
+from this lane** — not merely lost in a race — because resolving it would have been the
+wrong act even had the claim succeeded. That is the honest reading, and it is why this
+lane records C rather than claiming a partial A.
 
 **`work_release` is inapplicable here and was NOT called.** Procedure 5 says "Release
 while you still HOLD the item"; this lane never held it. Calling `work_release` on
@@ -281,11 +299,16 @@ by frontmatter description edits, and it stayed green.
 
 ## Findings for the manager (not fixed here)
 
-1. **Goal/launch defect — one item, four lanes.** `model_performance-kp79` was fanned out
-   to `kp79-catalog-{android-tester,browser-tester,dot-graph,reality-check}` (at least),
-   each instructed to claim the same id. Three lanes are guaranteed a refused claim. Fix:
-   one item per repo, or a lane contract that does not require a claim to do repo-local
-   work.
+1. **Goal/launch defect — one twelve-repo sweep item, five one-repo lanes.**
+   `model_performance-kp79` was fanned out to
+   `kp79-catalog-{android-tester,browser-tester,dot-graph,infographic-builder,reality-check}`,
+   each instructed to claim the same id; four are guaranteed a refused claim.
+   **The urgent half:** the holder's branch A tells it to resolve `kp79` once its own
+   single repo is done, which would close a ~12-repo sweep having swept one — silently
+   orphaning this repo's PR #8 and three other lanes' work under a closed item. Fix: one
+   item per repo (children of a `kp79` parent that closes only when its children do), or a
+   claim-optional lane contract for repo-local work. **Act before the holding lane
+   resolves.**
 2. **`NO_TOOLS_SECTION` x3 (pre-existing).** All three agents shell out to `agent-browser`
    via bash but declare no `tools:`, inheriting bash from `amplifier-foundation` via
    `bundle.md:8`. `behaviors/browser-tester.yaml` advertises itself as composable into any
