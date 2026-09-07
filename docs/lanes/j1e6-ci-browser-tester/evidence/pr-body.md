@@ -103,7 +103,9 @@ Four short `ubuntu-latest` checks per push/PR. No scheduled runs, no matrix beyo
 | commit | contents |
 |---|---|
 | `042d993` | **the workflow, and nothing else** — this is the commit the GREEN run above tested |
-| follow-up | this lane's own evidence note under `docs/lanes/j1e6-ci-browser-tester/`, matching the `docs/lanes/kp79-…/` convention already on `main`. Changes no shipped file and no workflow. |
+| follow-up | this lane's own evidence note and the two verbatim run logs, under `docs/lanes/j1e6-ci-browser-tester/`, matching the `docs/lanes/kp79-…/` convention already on `main`. Changes no shipped file and no workflow. |
+
+Every commit on this branch after `042d993` adds only lane evidence under `docs/lanes/`, and each has run green on the same four checks — see the Checks tab for the head commit. The two URLs quoted above are the red/green pair for the workflow-only commit, which is the pair this workflow was gated on.
 
 ---
 

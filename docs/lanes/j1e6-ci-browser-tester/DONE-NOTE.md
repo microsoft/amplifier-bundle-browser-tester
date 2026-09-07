@@ -277,5 +277,12 @@ docs/lanes/j1e6-ci-browser-tester/evidence/red-run-34150708849.txt
 docs/lanes/j1e6-ci-browser-tester/evidence/green-run-34150837431.txt
 ```
 
+**Every commit on this branch has run green on all four checks.** The quoted GREEN run
+`34150837431` is the one for the workflow-only commit `042d993` — the state the gate is
+about. The evidence commits that follow it touch only `docs/lanes/` and ran green too
+(`34151169374` for `f7822e9`); the run id for the final evidence commit is recorded in
+this lane's `DONE.json` marker, which lives outside this repo and therefore cannot
+itself trigger another run.
+
 No file outside this repo was written. No shipped agent, recipe, context file, behavior
 or doc was modified. The repo-root `DONE-NOTE.md` was **not** created (item `kez`).
