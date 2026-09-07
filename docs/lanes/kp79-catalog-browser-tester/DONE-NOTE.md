@@ -358,7 +358,21 @@ by frontmatter description edits, and it stayed green.
    agents load inert. The sibling `android-tester` bundle already declares its tool at the
    behavior level. **Catalog-byte-neutral to fix** (the catalog renders `description`
    only). Worth its own item.
-3. **The `browser-tester:` namespace resolves to the installed cache, not the checkout.**
+3. **GOAL-AUTHORING DEFECT — the goal's TITLE states the PRE-STATE as if it were the
+   outcome.** `GOAL.md` is titled *"Goal: 3 agents, all 3 carrying example blocks"*. That
+   is verbatim the pre-launch measurement (*"MEASURED BEFORE LAUNCH (verify, do not
+   re-derive): 3 agents, 3 files containing `<example>`"*) — i.e. the **scope of the work**,
+   not its end state. The actual requirement, stated correctly in the body and in the
+   acceptance criteria, is the exact inverse: trigger-first descriptions with **ZERO**
+   `<example>`/`<commentary>`. Delivered: 6 example blocks -> 0.
+   **Why it matters:** a title is the highest-salience line in the file and the one an
+   automated condition-checker is most likely to read literally. Read as an end state it
+   demands the lane *preserve* the violation it exists to remove, and a lane that satisfied
+   it would have shipped nothing. Fix: title goals by their outcome
+   (*"3 agent descriptions trigger-first, zero example blocks"*), and keep the pre-state
+   where it already lives — in the MEASURED BEFORE LAUNCH line.
+
+4. **The `browser-tester:` namespace resolves to the installed cache, not the checkout.**
    Any future before/after measurement in a lane worktree must override
    `source_base_paths`, or it will silently measure stock twice and exit 0. The render
    script in `evidence/` does this and reports `resolved_from` per row.
