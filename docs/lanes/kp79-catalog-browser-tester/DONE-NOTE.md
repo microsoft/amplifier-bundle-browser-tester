@@ -122,14 +122,14 @@ bytes.
 
 | Agent | desc chars BEFORE | desc chars AFTER | delta | catalog bytes BEFORE | catalog bytes AFTER | delta | <= ~600? |
 |---|---:|---:|---:|---:|---:|---:|:--:|
-| `browser-tester:browser-operator` | 819 | **560** | **-259** | 857 | 638 | -219 | YES |
+| `browser-tester:browser-operator` | 819 | **560** | **-259** | 857 | 598 | -259 | YES |
 | `browser-tester:browser-researcher` | 877 | **582** | **-295** | 917 | 622 | -295 | YES |
 | `browser-tester:visual-documenter` | 761 | **522** | **-239** | 800 | 561 | -239 | YES |
 | **REPO TOTAL** | **2457** | **1664** | **-793** | **2574** | **1781** | **-793** | 3/3 |
 
-(`catalog bytes` = `len("  - <name>: <description>")` + 1 joining newline. The
-browser-operator row's char delta and byte delta differ by 40 because a later trim
-removed 40 chars after the first byte snapshot; the AFTER column is the final state.)
+(`catalog bytes` = `len("  - <name>: <description>")` + 1 joining newline, so the byte
+delta equals the char delta per row. Numbers read directly from
+`evidence/catalog-before.json` and `evidence/catalog-after.json`, not retyped.)
 
 ### Bytes saved — the headline
 
