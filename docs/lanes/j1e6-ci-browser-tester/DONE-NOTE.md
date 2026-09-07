@@ -15,13 +15,35 @@ suite executing, is green on clean `main`, and is shipped as a draft PR marked r
 The merge is the manager's next stage (LANDING STAGE — procedure 4 forbids this lane
 to merge).
 
-**Terminal state: DONE — deliverables shipped for landing.**
+**Terminal state: OUTCOME BRANCH A — RESOLVED.** The item
+`model_performance-j1e6` is resolved *and* the deliverables exist as a ready-for-review
+PR on the module's origin. Both halves of branch A hold, so this lane is not blocked
+(branch C) and nothing was dropped for cap reasons (branch B).
 
-There is one thing this lane could **not** do, and it is not a deliverable: it does
-not hold the work item, so it cannot call `work_resolve`. See
-[The claim](#the-claim-refused-and-why-that-is-not-branch-c) below — this is a
-structural property of a one-item/many-lanes batch, reported as a goal defect rather
-than absorbed or escalated.
+**How the item came to be resolved is worth reading, because this lane did not resolve
+it and could not have.** The item is a deliberately multi-lane item — one item, nineteen
+repos, one PR each — so it can only ever be *held* by one lane at a time. At
+`18:14:01Z`, while this lane was mid-run, the **wayfinder** lane resolved it with a
+resolution covering its own repo and saying, correctly, *"the other 18 repos in this
+item remain for their own lanes."* That left a resolved item over a directive that was
+1 of 19 done, and this repo's slice unrecorded anywhere in the tracker.
+
+This lane's response, using the one sanctioned append-only mechanism:
+
+- **`work_erratum`** — recorded at `18:22:19Z`. It adds this repo's slice (PR #10, both
+  run URLs, coverage statement, spend) to the item's own record, and flags the 1-of-19
+  gap. Append-only: it does **not** rewrite the stored resolution, does not touch
+  `status` / `closed_at` / the holder, and needs no claim. The item now carries
+  `corrected: true`, and that flag travels with it everywhere the resolution is shown.
+- **Not `work_resolve`** — a second resolve with differing text fails and writes nothing;
+  and this lane never held the item.
+- **Not `work_reopen`** — the wayfinder work is not wrong, so nothing needs redoing.
+  Reopening clears `closed_at` and moves every throughput roll-up by one item. If the
+  manager wants the remaining 17 repos tracked as open, that call is theirs to make, on
+  purpose, with that cost visible.
+
+See [The claim](#the-claim-refused-and-why-that-is-not-branch-c) for the full sequence
+and the goal defect behind it.
 
 ---
 
@@ -213,6 +235,36 @@ and
 **So: goal defect reported here, work completed, no fourth branch invented, no
 BLOCKED.md written, terminal state chosen once and not revisited.**
 
+### Then the item was resolved out from under the batch — 18:14:01Z
+
+Mid-run, the holder (`agent-spark-1-1101253`, the **wayfinder** lane) resolved the item.
+Its resolution is accurate for wayfinder and ends with *"the other 18 repos in this item
+remain for their own lanes"* — but `status` is now `resolved`, so the tracker shows a
+closed item over an owner directive that is **1 of 19 done**, and this repo's slice was
+recorded nowhere.
+
+This is the same structural defect seen from the other end: the goal told each lane to
+finish by resolving a shared item, so the first lane to finish resolved it for everyone.
+
+**What this lane did, at 18:22:19Z: `work_erratum`.** Append-only, needs no claim, never
+rewrites the stored resolution and never touches `status` / `closed_at` / the holder.
+It adds this repo's slice to the item's record — PR #10, both run URLs, the coverage
+statement, the $0 spend — and flags the 1-of-19 gap for whoever reads the item next.
+The item now carries `corrected: true`.
+
+**What this lane deliberately did NOT do:**
+
+| action | why not |
+|---|---|
+| `work_resolve` | A second resolve with differing text **fails and writes nothing**. This lane also never held the item. Before that behaviour was fixed, such a call exited 0 and echoed the *old* text back as if the correction had landed — seven wrong resolutions shipped that way. |
+| `work_reopen` | Reserved for when the **work** is wrong. Wayfinder's work is not wrong. Reopening clears `closed_at`, re-lands the item on today's date and moves every throughput roll-up by one item. If the manager wants the remaining 17 repos tracked as open, that is a deliberate call with a visible cost — theirs, not this lane's. |
+| Claim it now that it is closed | Would take a resolved 19-lane item hostage to this one repo's slice. |
+
+**Consequence for the terminal state: this lane is OUTCOME BRANCH A.** The item *is*
+resolved and the deliverables *do* exist. Branch A does not require that this lane be
+the one that resolved it, and this lane's slice is on the item's permanent record via
+the erratum.
+
 ### Goal defect, for the manager
 
 **`model_performance-j1e6`'s per-lane goal template applies a single-lane claim/resolve
@@ -236,8 +288,11 @@ done either way.
    `gh api repos/microsoft/amplifier-bundle-browser-tester/commits/main/check-runs`.
    *Configured is not installed*, and this lane cannot verify a post-merge state it is
    forbidden to create.
-3. **`work_resolve` on `model_performance-j1e6`** once every sibling repo lane has
-   landed. This lane cannot: it does not hold the item.
+3. **Decide what happens to the 17 repos still uncovered by
+   `model_performance-j1e6`.** The item is resolved; wayfinder and browser-tester are
+   landed (the latter recorded by erratum); seventeen are not. Either reopen it, or
+   file the remainder as their own items — but the erratum is a record, not a queue,
+   and nothing will schedule those repos on its own.
 
 ---
 
@@ -261,7 +316,7 @@ deliverable is `NOT-POSSIBLE` and outcome branch B does not apply.
 | # | Deviation | Why |
 |---|---|---|
 | 1 | Did not write BLOCKED.md on the refused claim | The outcome was reachable and was reached; branch C requires unreachability. Goal defect reported above instead. |
-| 2 | Did not `work_resolve` | This lane does not hold the item and cannot; resolving a shared 19-lane item on the other 18 lanes' behalf would be worse than not resolving. |
+| 2 | Did not `work_resolve`; filed a `work_erratum` instead | The item was resolved mid-run by the wayfinder lane, covering 1 of its 19 repos. A second resolve with differing text fails and writes nothing, and this lane never held the item. The erratum is the sanctioned append-only correction: it records this repo's slice on the item without rewriting anyone's resolution or moving `closed_at`. |
 | 3 | The PR carries a second commit (this note + evidence) beyond the workflow | The goal requires lane artifacts under `docs/lanes/j1e6-ci-browser-tester/`, and the goal also says the real PR carries the workflow *only*. Reconciled by keeping the workflow in its own commit `042d993` — **the commit the GREEN run tested** — and the artifacts in a separate, clearly-named follow-up that touches no shipped file. `docs/lanes/kp79-…/` is already on `main`, so this matches existing repo convention. |
 | 4 | `gh pr edit --body-file` silently failed (projects-classic GraphQL deprecation error) | Worked around with `gh api -X PATCH … --input -`; the body was then **read back** from the API and both run URLs confirmed present. |
 
