@@ -1,0 +1,152 @@
+Lint	Lint (ruff)	﻿2026-09-07T18:12:55.8300419Z ##[group]Run uvx ruff@0.16.6 check --isolated --select E4,E7,E9,F .
+Lint	Lint (ruff)	2026-09-07T18:12:55.8301133Z uvx ruff@0.16.6 check --isolated --select E4,E7,E9,F .
+Lint	Lint (ruff)	2026-09-07T18:12:55.8346242Z shell: /usr/bin/bash -e {0}
+Lint	Lint (ruff)	2026-09-07T18:12:55.8346671Z env:
+Lint	Lint (ruff)	2026-09-07T18:12:55.8347009Z   UV_CACHE_DIR: /home/runner/work/_temp/setup-uv-cache
+Lint	Lint (ruff)	2026-09-07T18:12:55.8347401Z ##[endgroup]
+Lint	Lint (ruff)	2026-09-07T18:12:56.0238788Z Downloading ruff (9.8MiB)
+Lint	Lint (ruff)	2026-09-07T18:12:56.1060344Z  Downloaded ruff
+Lint	Lint (ruff)	2026-09-07T18:12:56.1083304Z Installed 1 package in 1ms
+Lint	Lint (ruff)	2026-09-07T18:12:56.1582950Z warning: Invalid `# noqa` directive on zz_ci_red_proof_lint.py:7: expected `:` followed by a comma-separated list of codes (e.g., `# noqa: F401, F841`).
+Lint	Lint (ruff)	2026-09-07T18:12:56.1584502Z F821 Undefined name `deliberately_undefined_name`
+Lint	Lint (ruff)	2026-09-07T18:12:56.1585411Z  --> zz_ci_red_proof_lint.py:7:9
+Lint	Lint (ruff)	2026-09-07T18:12:56.1586105Z   |
+Lint	Lint (ruff)	2026-09-07T18:12:56.1586460Z 5 | """
+Lint	Lint (ruff)	2026-09-07T18:12:56.1586776Z 6 |
+Lint	Lint (ruff)	2026-09-07T18:12:56.1587426Z 7 | VALUE = deliberately_undefined_name  # noqa-free on purpose: ruff F821 must fire
+Lint	Lint (ruff)	2026-09-07T18:12:56.1588277Z   |         ^^^^^^^^^^^^^^^^^^^^^^^^^^^
+Lint	Lint (ruff)	2026-09-07T18:12:56.1588486Z 
+Lint	Lint (ruff)	2026-09-07T18:12:56.1588616Z Found 1 error.
+Lint	Lint (ruff)	2026-09-07T18:12:56.1628878Z ##[error]Process completed with exit code 1.
+Tests (py3.13)	Run tests	﻿2026-09-07T18:12:57.9025933Z ##[group]Run uv run --no-project --python 3.13 --with 'pytest>=8.0' --with 'PyYAML>=6.0' pytest tests/ -q --tb=short
+Tests (py3.13)	Run tests	2026-09-07T18:12:57.9027321Z uv run --no-project --python 3.13 --with 'pytest>=8.0' --with 'PyYAML>=6.0' pytest tests/ -q --tb=short
+Tests (py3.13)	Run tests	2026-09-07T18:12:57.9070505Z shell: /usr/bin/bash -e {0}
+Tests (py3.13)	Run tests	2026-09-07T18:12:57.9070858Z env:
+Tests (py3.13)	Run tests	2026-09-07T18:12:57.9071172Z   UV_CACHE_DIR: /home/runner/work/_temp/setup-uv-cache
+Tests (py3.13)	Run tests	2026-09-07T18:12:57.9071629Z ##[endgroup]
+Tests (py3.13)	Run tests	2026-09-07T18:12:58.0988842Z Downloading cpython-3.13.15-linux-x86_64-gnu (download) (33.2MiB)
+Tests (py3.13)	Run tests	2026-09-07T18:12:59.0000537Z  Downloaded cpython-3.13.15-linux-x86_64-gnu (download)
+Tests (py3.13)	Run tests	2026-09-07T18:12:59.1892228Z Downloading pygments (1.2MiB)
+Tests (py3.13)	Run tests	2026-09-07T18:12:59.2303480Z  Downloaded pygments
+Tests (py3.13)	Run tests	2026-09-07T18:12:59.2482650Z Installed 6 packages in 17ms
+Tests (py3.13)	Run tests	2026-09-07T18:13:00.1818153Z ..............F                                                          [100%]
+Tests (py3.13)	Run tests	2026-09-07T18:13:00.1818938Z =================================== FAILURES ===================================
+Tests (py3.13)	Run tests	2026-09-07T18:13:00.1819923Z ___________________ test_zz_ci_red_proof_deliberate_failure ____________________
+Tests (py3.13)	Run tests	2026-09-07T18:13:00.1820771Z tests/test_zz_ci_red_proof.py:9: in test_zz_ci_red_proof_deliberate_failure
+Tests (py3.13)	Run tests	2026-09-07T18:13:00.1821755Z     assert 1 == 2, "deliberate failure: proving the Tests job can go red"
+Tests (py3.13)	Run tests	2026-09-07T18:13:00.1822659Z E   AssertionError: deliberate failure: proving the Tests job can go red
+Tests (py3.13)	Run tests	2026-09-07T18:13:00.1823359Z E   assert 1 == 2
+Tests (py3.13)	Run tests	2026-09-07T18:13:00.1823837Z =========================== short test summary info ============================
+Tests (py3.13)	Run tests	2026-09-07T18:13:00.1825197Z FAILED tests/test_zz_ci_red_proof.py::test_zz_ci_red_proof_deliberate_failure - AssertionError: deliberate failure: proving the Tests job can go red
+Tests (py3.13)	Run tests	2026-09-07T18:13:00.1826339Z assert 1 == 2
+Tests (py3.13)	Run tests	2026-09-07T18:13:00.1826994Z 1 failed, 14 passed in 0.11s
+Tests (py3.13)	Run tests	2026-09-07T18:13:00.2118088Z ##[error]Process completed with exit code 1.
+Tests (py3.11)	Run tests	﻿2026-09-07T18:12:57.7102615Z ##[group]Run uv run --no-project --python 3.11 --with 'pytest>=8.0' --with 'PyYAML>=6.0' pytest tests/ -q --tb=short
+Tests (py3.11)	Run tests	2026-09-07T18:12:57.7103604Z uv run --no-project --python 3.11 --with 'pytest>=8.0' --with 'PyYAML>=6.0' pytest tests/ -q --tb=short
+Tests (py3.11)	Run tests	2026-09-07T18:12:57.7145842Z shell: /usr/bin/bash -e {0}
+Tests (py3.11)	Run tests	2026-09-07T18:12:57.7146196Z env:
+Tests (py3.11)	Run tests	2026-09-07T18:12:57.7146510Z   UV_CACHE_DIR: /home/runner/work/_temp/setup-uv-cache
+Tests (py3.11)	Run tests	2026-09-07T18:12:57.7146895Z ##[endgroup]
+Tests (py3.11)	Run tests	2026-09-07T18:12:57.9059980Z Downloading cpython-3.11.16-linux-x86_64-gnu (download) (29.4MiB)
+Tests (py3.11)	Run tests	2026-09-07T18:12:58.9873670Z  Downloaded cpython-3.11.16-linux-x86_64-gnu (download)
+Tests (py3.11)	Run tests	2026-09-07T18:12:59.1535373Z Downloading pygments (1.2MiB)
+Tests (py3.11)	Run tests	2026-09-07T18:12:59.1849273Z  Downloaded pygments
+Tests (py3.11)	Run tests	2026-09-07T18:12:59.1961658Z Installed 6 packages in 10ms
+Tests (py3.11)	Run tests	2026-09-07T18:13:00.0570817Z ..............F                                                          [100%]
+Tests (py3.11)	Run tests	2026-09-07T18:13:00.0571601Z =================================== FAILURES ===================================
+Tests (py3.11)	Run tests	2026-09-07T18:13:00.0572436Z ___________________ test_zz_ci_red_proof_deliberate_failure ____________________
+Tests (py3.11)	Run tests	2026-09-07T18:13:00.0573348Z tests/test_zz_ci_red_proof.py:9: in test_zz_ci_red_proof_deliberate_failure
+Tests (py3.11)	Run tests	2026-09-07T18:13:00.0574214Z     assert 1 == 2, "deliberate failure: proving the Tests job can go red"
+Tests (py3.11)	Run tests	2026-09-07T18:13:00.0575078Z E   AssertionError: deliberate failure: proving the Tests job can go red
+Tests (py3.11)	Run tests	2026-09-07T18:13:00.0575772Z E   assert 1 == 2
+Tests (py3.11)	Run tests	2026-09-07T18:13:00.0576274Z =========================== short test summary info ============================
+Tests (py3.11)	Run tests	2026-09-07T18:13:00.0577969Z FAILED tests/test_zz_ci_red_proof.py::test_zz_ci_red_proof_deliberate_failure - AssertionError: deliberate failure: proving the Tests job can go red
+Tests (py3.11)	Run tests	2026-09-07T18:13:00.0579183Z assert 1 == 2
+Tests (py3.11)	Run tests	2026-09-07T18:13:00.0579576Z 1 failed, 14 passed in 0.11s
+Tests (py3.11)	Run tests	2026-09-07T18:13:00.0855817Z ##[error]Process completed with exit code 1.
+Bundle structure (YAML)	Parse bundle.md frontmatter and behaviors/*.yaml	﻿2026-09-07T18:12:57.3393274Z ##[group]Run python - <<'PY'
+Bundle structure (YAML)	Parse bundle.md frontmatter and behaviors/*.yaml	2026-09-07T18:12:57.3394038Z python - <<'PY'
+Bundle structure (YAML)	Parse bundle.md frontmatter and behaviors/*.yaml	2026-09-07T18:12:57.3394367Z import pathlib
+Bundle structure (YAML)	Parse bundle.md frontmatter and behaviors/*.yaml	2026-09-07T18:12:57.3394643Z import sys
+Bundle structure (YAML)	Parse bundle.md frontmatter and behaviors/*.yaml	2026-09-07T18:12:57.3394892Z 
+Bundle structure (YAML)	Parse bundle.md frontmatter and behaviors/*.yaml	2026-09-07T18:12:57.3395131Z import yaml
+Bundle structure (YAML)	Parse bundle.md frontmatter and behaviors/*.yaml	2026-09-07T18:12:57.3395385Z 
+Bundle structure (YAML)	Parse bundle.md frontmatter and behaviors/*.yaml	2026-09-07T18:12:57.3395633Z root = pathlib.Path.cwd()
+Bundle structure (YAML)	Parse bundle.md frontmatter and behaviors/*.yaml	2026-09-07T18:12:57.3395955Z failures: list[str] = []
+Bundle structure (YAML)	Parse bundle.md frontmatter and behaviors/*.yaml	2026-09-07T18:12:57.3396251Z checked = 0
+Bundle structure (YAML)	Parse bundle.md frontmatter and behaviors/*.yaml	2026-09-07T18:12:57.3396520Z 
+Bundle structure (YAML)	Parse bundle.md frontmatter and behaviors/*.yaml	2026-09-07T18:12:57.3396767Z bundle_md = root / "bundle.md"
+Bundle structure (YAML)	Parse bundle.md frontmatter and behaviors/*.yaml	2026-09-07T18:12:57.3397096Z if not bundle_md.is_file():
+Bundle structure (YAML)	Parse bundle.md frontmatter and behaviors/*.yaml	2026-09-07T18:12:57.3397443Z     failures.append("bundle.md is missing")
+Bundle structure (YAML)	Parse bundle.md frontmatter and behaviors/*.yaml	2026-09-07T18:12:57.3398038Z else:
+Bundle structure (YAML)	Parse bundle.md frontmatter and behaviors/*.yaml	2026-09-07T18:12:57.3398369Z     text = bundle_md.read_text(encoding="utf-8")
+Bundle structure (YAML)	Parse bundle.md frontmatter and behaviors/*.yaml	2026-09-07T18:12:57.3398756Z     if not text.startswith("---\n"):
+Bundle structure (YAML)	Parse bundle.md frontmatter and behaviors/*.yaml	2026-09-07T18:12:57.3399288Z         failures.append("bundle.md: no YAML frontmatter (file does not open with '---')")
+Bundle structure (YAML)	Parse bundle.md frontmatter and behaviors/*.yaml	2026-09-07T18:12:57.3399813Z     else:
+Bundle structure (YAML)	Parse bundle.md frontmatter and behaviors/*.yaml	2026-09-07T18:12:57.3400087Z         end = text.find("\n---", 3)
+Bundle structure (YAML)	Parse bundle.md frontmatter and behaviors/*.yaml	2026-09-07T18:12:57.3400412Z         if end == -1:
+Bundle structure (YAML)	Parse bundle.md frontmatter and behaviors/*.yaml	2026-09-07T18:12:57.3400830Z             failures.append("bundle.md: frontmatter opened but never closed")
+Bundle structure (YAML)	Parse bundle.md frontmatter and behaviors/*.yaml	2026-09-07T18:12:57.3401282Z         else:
+Bundle structure (YAML)	Parse bundle.md frontmatter and behaviors/*.yaml	2026-09-07T18:12:57.3401544Z             data = None
+Bundle structure (YAML)	Parse bundle.md frontmatter and behaviors/*.yaml	2026-09-07T18:12:57.3401837Z             try:
+Bundle structure (YAML)	Parse bundle.md frontmatter and behaviors/*.yaml	2026-09-07T18:12:57.3402152Z                 data = yaml.safe_load(text[4 : end + 1])
+Bundle structure (YAML)	Parse bundle.md frontmatter and behaviors/*.yaml	2026-09-07T18:12:57.3402518Z                 checked += 1
+Bundle structure (YAML)	Parse bundle.md frontmatter and behaviors/*.yaml	2026-09-07T18:12:57.3402846Z             except yaml.YAMLError as exc:
+Bundle structure (YAML)	Parse bundle.md frontmatter and behaviors/*.yaml	2026-09-07T18:12:57.3403281Z                 failures.append("bundle.md frontmatter: " + str(exc))
+Bundle structure (YAML)	Parse bundle.md frontmatter and behaviors/*.yaml	2026-09-07T18:12:57.3403997Z             if data is not None:
+Bundle structure (YAML)	Parse bundle.md frontmatter and behaviors/*.yaml	2026-09-07T18:12:57.3404508Z                 name = data.get("bundle", {}).get("name") if isinstance(data, dict) else None
+Bundle structure (YAML)	Parse bundle.md frontmatter and behaviors/*.yaml	2026-09-07T18:12:57.3404971Z                 if not name:
+Bundle structure (YAML)	Parse bundle.md frontmatter and behaviors/*.yaml	2026-09-07T18:12:57.3405400Z                     failures.append("bundle.md frontmatter: missing bundle.name")
+Bundle structure (YAML)	Parse bundle.md frontmatter and behaviors/*.yaml	2026-09-07T18:12:57.3405835Z                 else:
+Bundle structure (YAML)	Parse bundle.md frontmatter and behaviors/*.yaml	2026-09-07T18:12:57.3406198Z                     print("OK  bundle.md  (bundle.name=" + str(name) + ")")
+Bundle structure (YAML)	Parse bundle.md frontmatter and behaviors/*.yaml	2026-09-07T18:12:57.3406583Z 
+Bundle structure (YAML)	Parse bundle.md frontmatter and behaviors/*.yaml	2026-09-07T18:12:57.3406887Z behaviors = sorted((root / "behaviors").glob("*.yaml"))
+Bundle structure (YAML)	Parse bundle.md frontmatter and behaviors/*.yaml	2026-09-07T18:12:57.3407272Z if not behaviors:
+Bundle structure (YAML)	Parse bundle.md frontmatter and behaviors/*.yaml	2026-09-07T18:12:57.3407557Z     failures.append(
+Bundle structure (YAML)	Parse bundle.md frontmatter and behaviors/*.yaml	2026-09-07T18:12:57.3408036Z         "behaviors/*.yaml matched NOTHING -- a structure gate that checks zero files is decoration"
+Bundle structure (YAML)	Parse bundle.md frontmatter and behaviors/*.yaml	2026-09-07T18:12:57.3408546Z     )
+Bundle structure (YAML)	Parse bundle.md frontmatter and behaviors/*.yaml	2026-09-07T18:12:57.3408804Z for path in behaviors:
+Bundle structure (YAML)	Parse bundle.md frontmatter and behaviors/*.yaml	2026-09-07T18:12:57.3409178Z     # .as_posix(), not str(): str() emits OS-native separators.
+Bundle structure (YAML)	Parse bundle.md frontmatter and behaviors/*.yaml	2026-09-07T18:12:57.3409610Z     rel = path.relative_to(root).as_posix()
+Bundle structure (YAML)	Parse bundle.md frontmatter and behaviors/*.yaml	2026-09-07T18:12:57.3409937Z     try:
+Bundle structure (YAML)	Parse bundle.md frontmatter and behaviors/*.yaml	2026-09-07T18:12:57.3410255Z         data = yaml.safe_load(path.read_text(encoding="utf-8"))
+Bundle structure (YAML)	Parse bundle.md frontmatter and behaviors/*.yaml	2026-09-07T18:12:57.3410646Z         checked += 1
+Bundle structure (YAML)	Parse bundle.md frontmatter and behaviors/*.yaml	2026-09-07T18:12:57.3410943Z     except yaml.YAMLError as exc:
+Bundle structure (YAML)	Parse bundle.md frontmatter and behaviors/*.yaml	2026-09-07T18:12:57.3411301Z         failures.append(rel + ": " + str(exc))
+Bundle structure (YAML)	Parse bundle.md frontmatter and behaviors/*.yaml	2026-09-07T18:12:57.3411645Z         continue
+Bundle structure (YAML)	Parse bundle.md frontmatter and behaviors/*.yaml	2026-09-07T18:12:57.3412036Z     name = data.get("bundle", {}).get("name") if isinstance(data, dict) else None
+Bundle structure (YAML)	Parse bundle.md frontmatter and behaviors/*.yaml	2026-09-07T18:12:57.3412468Z     if not name:
+Bundle structure (YAML)	Parse bundle.md frontmatter and behaviors/*.yaml	2026-09-07T18:12:57.3412807Z         failures.append(rel + ": missing bundle.name")
+Bundle structure (YAML)	Parse bundle.md frontmatter and behaviors/*.yaml	2026-09-07T18:12:57.3413164Z     else:
+Bundle structure (YAML)	Parse bundle.md frontmatter and behaviors/*.yaml	2026-09-07T18:12:57.3413484Z         print("OK  " + rel + "  (bundle.name=" + str(name) + ")")
+Bundle structure (YAML)	Parse bundle.md frontmatter and behaviors/*.yaml	2026-09-07T18:12:57.3414422Z 
+Bundle structure (YAML)	Parse bundle.md frontmatter and behaviors/*.yaml	2026-09-07T18:12:57.3414656Z print("")
+Bundle structure (YAML)	Parse bundle.md frontmatter and behaviors/*.yaml	2026-09-07T18:12:57.3414979Z print(str(checked) + " YAML document(s) parsed.")
+Bundle structure (YAML)	Parse bundle.md frontmatter and behaviors/*.yaml	2026-09-07T18:12:57.3415353Z if failures:
+Bundle structure (YAML)	Parse bundle.md frontmatter and behaviors/*.yaml	2026-09-07T18:12:57.3415612Z     print("")
+Bundle structure (YAML)	Parse bundle.md frontmatter and behaviors/*.yaml	2026-09-07T18:12:57.3415883Z     print("FAILURES:")
+Bundle structure (YAML)	Parse bundle.md frontmatter and behaviors/*.yaml	2026-09-07T18:12:57.3416182Z     for item in failures:
+Bundle structure (YAML)	Parse bundle.md frontmatter and behaviors/*.yaml	2026-09-07T18:12:57.3416493Z         print("  - " + item)
+Bundle structure (YAML)	Parse bundle.md frontmatter and behaviors/*.yaml	2026-09-07T18:12:57.3416800Z     sys.exit(1)
+Bundle structure (YAML)	Parse bundle.md frontmatter and behaviors/*.yaml	2026-09-07T18:12:57.3417085Z print("Bundle structure OK.")
+Bundle structure (YAML)	Parse bundle.md frontmatter and behaviors/*.yaml	2026-09-07T18:12:57.3417418Z PY
+Bundle structure (YAML)	Parse bundle.md frontmatter and behaviors/*.yaml	2026-09-07T18:12:57.3455481Z shell: /usr/bin/bash -e {0}
+Bundle structure (YAML)	Parse bundle.md frontmatter and behaviors/*.yaml	2026-09-07T18:12:57.3455797Z env:
+Bundle structure (YAML)	Parse bundle.md frontmatter and behaviors/*.yaml	2026-09-07T18:12:57.3456122Z   pythonLocation: /opt/hostedtoolcache/Python/3.13.15/x64
+Bundle structure (YAML)	Parse bundle.md frontmatter and behaviors/*.yaml	2026-09-07T18:12:57.3456761Z   PKG_CONFIG_PATH: /opt/hostedtoolcache/Python/3.13.15/x64/lib/pkgconfig
+Bundle structure (YAML)	Parse bundle.md frontmatter and behaviors/*.yaml	2026-09-07T18:12:57.3457260Z   Python_ROOT_DIR: /opt/hostedtoolcache/Python/3.13.15/x64
+Bundle structure (YAML)	Parse bundle.md frontmatter and behaviors/*.yaml	2026-09-07T18:12:57.3457736Z   Python2_ROOT_DIR: /opt/hostedtoolcache/Python/3.13.15/x64
+Bundle structure (YAML)	Parse bundle.md frontmatter and behaviors/*.yaml	2026-09-07T18:12:57.3458173Z   Python3_ROOT_DIR: /opt/hostedtoolcache/Python/3.13.15/x64
+Bundle structure (YAML)	Parse bundle.md frontmatter and behaviors/*.yaml	2026-09-07T18:12:57.3458609Z   LD_LIBRARY_PATH: /opt/hostedtoolcache/Python/3.13.15/x64/lib
+Bundle structure (YAML)	Parse bundle.md frontmatter and behaviors/*.yaml	2026-09-07T18:12:57.3458981Z ##[endgroup]
+Bundle structure (YAML)	Parse bundle.md frontmatter and behaviors/*.yaml	2026-09-07T18:12:57.3900012Z OK  bundle.md  (bundle.name=browser-tester)
+Bundle structure (YAML)	Parse bundle.md frontmatter and behaviors/*.yaml	2026-09-07T18:12:57.3901263Z OK  behaviors/browser-tester.yaml  (bundle.name=browser-testing-behavior)
+Bundle structure (YAML)	Parse bundle.md frontmatter and behaviors/*.yaml	2026-09-07T18:12:57.3901917Z 
+Bundle structure (YAML)	Parse bundle.md frontmatter and behaviors/*.yaml	2026-09-07T18:12:57.3902153Z 2 YAML document(s) parsed.
+Bundle structure (YAML)	Parse bundle.md frontmatter and behaviors/*.yaml	2026-09-07T18:12:57.3902485Z 
+Bundle structure (YAML)	Parse bundle.md frontmatter and behaviors/*.yaml	2026-09-07T18:12:57.3902712Z FAILURES:
+Bundle structure (YAML)	Parse bundle.md frontmatter and behaviors/*.yaml	2026-09-07T18:12:57.3903484Z   - behaviors/zz-ci-red-proof.yaml: mapping values are not allowed here
+Bundle structure (YAML)	Parse bundle.md frontmatter and behaviors/*.yaml	2026-09-07T18:12:57.3904593Z   in "<unicode string>", line 3, column 11:
+Bundle structure (YAML)	Parse bundle.md frontmatter and behaviors/*.yaml	2026-09-07T18:12:57.3905269Z        version: oops-bad-indent: and a colon
+Bundle structure (YAML)	Parse bundle.md frontmatter and behaviors/*.yaml	2026-09-07T18:12:57.3905866Z               ^
+Bundle structure (YAML)	Parse bundle.md frontmatter and behaviors/*.yaml	2026-09-07T18:12:57.3957041Z ##[error]Process completed with exit code 1.

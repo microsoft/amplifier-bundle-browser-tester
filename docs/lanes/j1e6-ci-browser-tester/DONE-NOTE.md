@@ -65,7 +65,15 @@ Bundle structure (YAML) | 2 YAML document(s) parsed.  /  Bundle structure OK.
 ```
 
 Both job logs are committed verbatim beside this note:
-`evidence/red-run-34150708849.log`, `evidence/green-run-34150837431.log`.
+`evidence/red-run-34150708849.txt`, `evidence/green-run-34150837431.txt` — raw
+`gh run view --log` output, unedited except for stripping ANSI colour escapes.
+Committed rather than left at the run URLs because Actions log retention expires and
+this is the only artifact that proves the red run reached the suite.
+
+They carry a `.txt` extension, not `.log`, because this repo's `.gitignore` ignores
+`*.log` — the first commit of this note silently dropped both files and the ignore rule
+was found by reading `git status` output rather than trusting the `git add` that
+reported nothing wrong.
 
 ### Scratch teardown, verified rather than assumed
 
@@ -265,8 +273,8 @@ deliverable is `NOT-POSSIBLE` and outcome branch B does not apply.
 .github/workflows/ci.yml                                       (new, 200 lines — commit 042d993)
 docs/lanes/j1e6-ci-browser-tester/DONE-NOTE.md                 (this file)
 docs/lanes/j1e6-ci-browser-tester/evidence/pr-body.md
-docs/lanes/j1e6-ci-browser-tester/evidence/red-run-34150708849.log
-docs/lanes/j1e6-ci-browser-tester/evidence/green-run-34150837431.log
+docs/lanes/j1e6-ci-browser-tester/evidence/red-run-34150708849.txt
+docs/lanes/j1e6-ci-browser-tester/evidence/green-run-34150837431.txt
 ```
 
 No file outside this repo was written. No shipped agent, recipe, context file, behavior
