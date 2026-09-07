@@ -1,0 +1,58 @@
+
+===== RENDERED CATALOG LINES (scoped) =====
+  - browser-tester:browser-operator: General-purpose browser automation using agent-browser CLI. Handles navigation,
+form filling, data extraction, screenshots, and UX testing. Accepts natural
+language instructions and translates them to browser actions.
+
+Use PROACTIVELY when user needs to interact with a live website, fill forms,
+test UI flows, click buttons, or extract data from JavaScript-rendered pages.
+
+<example>
+Context: User needs to interact with a live website
+user: 'Go to github.com and find the trending repositories'
+assistant: 'I'll delegate to browser-operator for live web navigation and data extraction.'
+</example>
+
+<example>
+Context: User needs form filling or UI testing
+user: 'Fill the contact form with name=John, email=john@test.com'
+assistant: 'I'll use browser-operator to navigate to the form and fill the fields.'
+</example>
+
+  - browser-tester:browser-researcher: Research-focused browser agent for finding and extracting information from websites.
+Optimized for multi-page exploration, data extraction, and summarization.
+
+Use PROACTIVELY when user needs to research topics across multiple websites,
+compare competitors, look up documentation, or extract structured data from
+the web. Preferred over web_fetch when sites require JavaScript rendering.
+
+<example>
+Context: User needs competitive research
+user: 'Research the pricing of top 3 competitors in the CRM space'
+assistant: 'I'll delegate to browser-researcher to visit each competitor site and extract pricing data.'
+</example>
+
+<example>
+Context: User needs documentation lookup from JS-rendered sites
+user: 'Find the API rate limits from Stripe's documentation'
+assistant: 'I'll use browser-researcher to navigate Stripe's docs and extract the rate limit information.'
+</example>
+
+  - browser-tester:visual-documenter: Screenshot and visual documentation agent. Creates visual records of websites,
+UI states, and workflows. Perfect for documentation, QA evidence, and change tracking.
+
+Use PROACTIVELY when user needs screenshots, visual documentation, responsive
+testing across viewports, before/after comparisons, or QA evidence capture.
+
+<example>
+Context: User needs responsive screenshots
+user: 'Screenshot our landing page at desktop, tablet, and mobile widths'
+assistant: 'I'll delegate to visual-documenter to capture the page at multiple viewport sizes.'
+</example>
+
+<example>
+Context: User needs workflow documentation
+user: 'Document the checkout flow step by step'
+assistant: 'I'll use visual-documenter to walk through the checkout and capture each step.'
+</example>
+

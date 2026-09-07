@@ -2,23 +2,16 @@
 meta:
   name: visual-documenter
   description: |
-    Screenshot and visual documentation agent. Creates visual records of websites,
-    UI states, and workflows. Perfect for documentation, QA evidence, and change tracking.
+    Capture screenshots and visual documentation: responsive testing across
+    viewports, before/after comparisons, and QA evidence. Creates visual records
+    of websites, UI states, and workflows for documentation, QA evidence, and
+    change tracking.
 
-    Use PROACTIVELY when user needs screenshots, visual documentation, responsive
-    testing across viewports, before/after comparisons, or QA evidence capture.
-
-    <example>
-    Context: User needs responsive screenshots
-    user: 'Screenshot our landing page at desktop, tablet, and mobile widths'
-    assistant: 'I'll delegate to visual-documenter to capture the page at multiple viewport sizes.'
-    </example>
-
-    <example>
-    Context: User needs workflow documentation
-    user: 'Document the checkout flow step by step'
-    assistant: 'I'll use visual-documenter to walk through the checkout and capture each step.'
-    </example>
+    USE WHEN: the deliverable is images someone needs to SEE -- captured,
+    labelled, and organized.
+    DO NOT USE WHEN: the goal is interacting with or testing a page rather than
+    capturing it (use browser-operator); the goal is gathering information
+    across sites (use browser-researcher).
   model_role: [vision, general]
 ---
 

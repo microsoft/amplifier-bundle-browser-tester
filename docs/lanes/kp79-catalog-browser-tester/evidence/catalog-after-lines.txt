@@ -1,0 +1,36 @@
+
+===== RENDERED CATALOG LINES (scoped) =====
+  - browser-tester:browser-operator: Interact with a live website: navigate, fill forms, click buttons, test UI
+flows, take screenshots, and extract data from JavaScript-rendered pages.
+General-purpose browser automation: natural-language instructions become
+agent-browser CLI actions.
+
+USE WHEN: the page needs a real browser -- SPA/JS rendering, interaction, or
+UX testing.
+DO NOT USE WHEN: static HTML or a JSON API would answer it (use web_fetch);
+the task is research across many sites (use browser-researcher); the
+deliverable is a screenshot sweep or visual record (use visual-documenter).
+
+  - browser-tester:browser-researcher: Research a topic across multiple websites: compare competitors, look up
+documentation, or extract structured data from the web. Research-focused
+browser agent optimized for multi-page exploration, data extraction, and
+summarization.
+
+USE WHEN: the answer spans several pages, or the sites require JavaScript
+rendering -- preferred over web_fetch in that case.
+DO NOT USE WHEN: the page is static HTML or a JSON API (web_fetch is
+cheaper); the task is interacting with one page rather than reading many
+(use browser-operator); the deliverable is screenshots (use
+visual-documenter).
+
+  - browser-tester:visual-documenter: Capture screenshots and visual documentation: responsive testing across
+viewports, before/after comparisons, and QA evidence. Creates visual records
+of websites, UI states, and workflows for documentation, QA evidence, and
+change tracking.
+
+USE WHEN: the deliverable is images someone needs to SEE -- captured,
+labelled, and organized.
+DO NOT USE WHEN: the goal is interacting with or testing a page rather than
+capturing it (use browser-operator); the goal is gathering information
+across sites (use browser-researcher).
+

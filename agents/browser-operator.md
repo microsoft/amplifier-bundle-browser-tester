@@ -2,24 +2,16 @@
 meta:
   name: browser-operator
   description: |
-    General-purpose browser automation using agent-browser CLI. Handles navigation,
-    form filling, data extraction, screenshots, and UX testing. Accepts natural
-    language instructions and translates them to browser actions.
+    Interact with a live website: navigate, fill forms, click buttons, test UI
+    flows, take screenshots, and extract data from JavaScript-rendered pages.
+    General-purpose browser automation: natural-language instructions become
+    agent-browser CLI actions.
 
-    Use PROACTIVELY when user needs to interact with a live website, fill forms,
-    test UI flows, click buttons, or extract data from JavaScript-rendered pages.
-
-    <example>
-    Context: User needs to interact with a live website
-    user: 'Go to github.com and find the trending repositories'
-    assistant: 'I'll delegate to browser-operator for live web navigation and data extraction.'
-    </example>
-
-    <example>
-    Context: User needs form filling or UI testing
-    user: 'Fill the contact form with name=John, email=john@test.com'
-    assistant: 'I'll use browser-operator to navigate to the form and fill the fields.'
-    </example>
+    USE WHEN: the page needs a real browser -- SPA/JS rendering, interaction, or
+    UX testing.
+    DO NOT USE WHEN: static HTML or a JSON API would answer it (use web_fetch);
+    the task is research across many sites (use browser-researcher); the
+    deliverable is a screenshot sweep or visual record (use visual-documenter).
   model_role: [vision, general]
 ---
 

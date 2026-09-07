@@ -1,0 +1,32 @@
+{
+  "bundle": "/home/bkrabach/dev/hw-model-performance/lanes/kp79-catalog-browser-tester/amplifier-bundle-browser-tester/bundle.md",
+  "overrides": {
+    "browser-tester": "/tmp/stock"
+  },
+  "agents_total_in_catalog": 40,
+  "scoped_prefix": "browser-tester:",
+  "scoped_agents": 3,
+  "scoped_desc_chars": 2457,
+  "scoped_catalog_bytes": 2574,
+  "catalog_bytes_all_agents": 37455,
+  "rows": [
+    {
+      "name": "browser-tester:browser-operator",
+      "resolved_from": "/tmp/stock/agents/browser-operator.md",
+      "desc_chars": 819,
+      "line_bytes": 857
+    },
+    {
+      "name": "browser-tester:browser-researcher",
+      "resolved_from": "/tmp/stock/agents/browser-researcher.md",
+      "desc_chars": 877,
+      "line_bytes": 917
+    },
+    {
+      "name": "browser-tester:visual-documenter",
+      "resolved_from": "/tmp/stock/agents/visual-documenter.md",
+      "desc_chars": 761,
+      "line_bytes": 800
+    }
+  ]
+}

@@ -2,24 +2,17 @@
 meta:
   name: browser-researcher
   description: |
-    Research-focused browser agent for finding and extracting information from websites.
-    Optimized for multi-page exploration, data extraction, and summarization.
+    Research a topic across multiple websites: compare competitors, look up
+    documentation, or extract structured data from the web. Research-focused
+    browser agent optimized for multi-page exploration, data extraction, and
+    summarization.
 
-    Use PROACTIVELY when user needs to research topics across multiple websites,
-    compare competitors, look up documentation, or extract structured data from
-    the web. Preferred over web_fetch when sites require JavaScript rendering.
-
-    <example>
-    Context: User needs competitive research
-    user: 'Research the pricing of top 3 competitors in the CRM space'
-    assistant: 'I'll delegate to browser-researcher to visit each competitor site and extract pricing data.'
-    </example>
-
-    <example>
-    Context: User needs documentation lookup from JS-rendered sites
-    user: 'Find the API rate limits from Stripe's documentation'
-    assistant: 'I'll use browser-researcher to navigate Stripe's docs and extract the rate limit information.'
-    </example>
+    USE WHEN: the answer spans several pages, or the sites require JavaScript
+    rendering -- preferred over web_fetch in that case.
+    DO NOT USE WHEN: the page is static HTML or a JSON API (web_fetch is
+    cheaper); the task is interacting with one page rather than reading many
+    (use browser-operator); the deliverable is screenshots (use
+    visual-documenter).
   model_role: [research, general]
 ---
 
