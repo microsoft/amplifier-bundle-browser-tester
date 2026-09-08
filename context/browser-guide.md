@@ -2,6 +2,41 @@
 
 Comprehensive reference for the agent-browser CLI. This document is loaded by browser agents on demand.
 
+## The Load-Bearing Constraint
+
+### The current snapshot is the sensor. A ref from a superseded snapshot is a memory, never a target.
+
+This is not a style preference — it follows directly from how refs are assigned. `snapshot -ic` walks the accessibility tree and numbers what it finds: `@e1`, `@e2`, `@e3`. Those numbers describe **the page state that produced them**, and nothing else. A ref is a position in one reading of the page, not a durable handle on an element.
+
+Anything that changes the page supersedes that reading: navigation, a click, a form submission, an SPA re-render, an API response landing, a modal opening or auto-dismissing.
+
+### Why this is worse than it sounds
+
+The **loud** failure is the easy one. `Element not found: @e5` is an error, you re-snapshot, you retry, no harm done.
+
+The failure this rule exists for is the **quiet** one: a stale ref that still resolves. The number is still in range, so the command succeeds — against whatever element now occupies that position. A `fill` lands in a different field; a `click` hits a different button. There is no error, and a subsequent screenshot can look entirely plausible.
+
+The difference between the two outcomes is not under your control. It depends on how the page happened to re-number. The discipline is what is under your control.
+
+### The division of responsibility
+
+| Question | Answer from |
+|---|---|
+| Which ref do I act on? | The **most recent** `snapshot -ic` — always |
+| What is on the page right now? | `snapshot -ic` for structure, `screenshot` for appearance |
+| Does this look right? | `screenshot` + vision |
+| Did my action do what I expected? | `snapshot -ic` before and after — compare |
+| Is this element visible / enabled / checked? | `is visible` / `is enabled` / `is checked` on a **fresh** ref |
+| Has the page finished changing? | `wait --text` / `wait --url` / `wait --load` — then snapshot |
+
+### The rule, stated as a prohibition
+
+**Never reuse a ref across a state change.** Not to save a snapshot, not to save tokens, not because the page "probably didn't renumber". If you clicked, navigated, submitted, or waited for content — the refs you hold are from before, and they are no longer evidence of anything.
+
+Gate on the change rather than guessing at it: `wait --text "Success"` or `wait --url "**/step2"`, *then* `snapshot -ic`. A fresh snapshot after a state change is the cheapest correctness guarantee in this bundle — roughly 700 tokens with `-ic`.
+
+---
+
 ## Philosophy: Be a User, Not a Script
 
 When testing web applications, **think and act like a real user**, not a test script:
